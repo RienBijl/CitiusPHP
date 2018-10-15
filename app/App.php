@@ -14,6 +14,8 @@ class App
     $workable = $this->getWorkable();
     $notfound = false;
 
+
+
     if(isset($workable[0]))
     {
       if(file_exists('./mvc/controllers/' .$workable[0] .'.php'))
@@ -25,6 +27,7 @@ class App
       }
     }
 
+
     require_once './mvc/controllers/' .$this->controller .'.php';
     $this->controller = new $this->controller;
 
@@ -33,6 +36,7 @@ class App
       if(method_exists($this->controller, $workable[1]))
       {
         	$this->method = $workable[1];
+          unset($workable[1]);
       } else {
         $notfound = true;
       }
@@ -48,7 +52,9 @@ class App
 
     $this->params = $workable ? array_values($workable) : [];
 
-    call_user_func_array([$this->controller, $this->method], $this->params);
+    $this->controller->params = $this->params;
+
+    call_user_func([$this->controller, $this->method]);
 
   }
 
