@@ -5,6 +5,6 @@ require 'App.php';
 require 'CPController.php';
 
 // Config requirements
-$conf_router = require './config/router.php';
+$GLOBALS['conf_routing'] = require './config/routing.php';
 
 new App();
