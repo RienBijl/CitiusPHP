@@ -29,4 +29,10 @@ class CPController {
      return $this->smarty;
    }
 
+   protected function model($model)
+   {
+     require './mvc/models/' .$model .'.php';
+     $this->$model = new $model;
+   }
+
 }

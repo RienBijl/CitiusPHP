@@ -1,14 +1,16 @@
 <?php
 
-class TableObject
+class Table
 {
 
   protected $table;
+  protected $db;
   protected $cache = array();
 
-  public function load($table)
+  public function load($table, $db)
   {
     $this->table = $table;
+    $this->db = $db;
   }
 
   public function flush()
@@ -36,8 +38,7 @@ class TableObject
     Push to database
     */
 
-    global $db;
-    $response = $db->query($query, array($value), true);
+    $response = $this->db->query($query, array($value), true);
 
     /*
     Cache response
@@ -64,8 +65,7 @@ class TableObject
     Push data to database
     */
 
-    global $db;
-    $db->query($query, array($column));
+    $this->db->query($query, array($column));
   }
 
   public function insert($args)
@@ -112,8 +112,7 @@ class TableObject
     Push data to database
     */
 
-    global $db;
-    $db->query($query, $array);
+    $this->db->query($query, $array);
   }
 
 }
